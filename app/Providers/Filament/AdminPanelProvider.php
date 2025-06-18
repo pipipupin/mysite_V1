@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Auth\Authenticatable;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -53,6 +54,12 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->auth(function (Authenticatable $user) {
+                return in_array($user->email, [
+                    'admin@admin.com',
+                    // другие email-админов
+                ]);
+            });
     }
 }
