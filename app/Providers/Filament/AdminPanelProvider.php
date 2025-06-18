@@ -54,12 +54,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])
-            ->auth(function (Authenticatable $user) {
-                return in_array($user->email, [
-                    'admin@admin.com',
-                    // другие email-админов
-                ]);
-            });
+            ]);
     }
 }
